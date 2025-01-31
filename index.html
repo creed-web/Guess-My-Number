@@ -6,11 +6,44 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="style.css" />
     <title>Guess My Number!</title>
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="script.js"></script>
   </head>
   <body>
+    <div class="auth-container" id="authContainer">
+        <div class="auth-box">
+            <div class="auth-header">
+                <button type="button" class="auth-toggle active" onclick="toggleAuth('login')">Login</button>
+                <button type="button" class="auth-toggle" onclick="toggleAuth('signup')">Sign Up</button>
+            </div>
+            
+            <!-- Login Form -->
+            <form id="loginForm" class="auth-form">
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+            
+            <!-- Signup Form -->
+            <form id="signupForm" class="auth-form" style="display: none;">
+                <input type="text" placeholder="Username" required>
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Password" required>
+                <input type="password" placeholder="Confirm Password" required>
+                <button type="submit">Sign Up</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add user profile section -->
+    <div class="user-profile" id="userProfile" style="display: none;">
+        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="Profile" class="profile-pic">
+        <span class="username">Username</span>
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
     <header>
-      <h1>Guess My Number!</h1>
-      <p class="between">(Between 1 and 20)</p>
+      <h1>Guess My Number! (Between 1 and 20)</h1>
+      
       <button class="btn again">Again!</button>
       <div class="number">?</div>
     </header>
@@ -21,6 +54,10 @@
       </section>
       <section class="right">
         <p class="message">Start guessing...</p>
+        <div class="hint-section">
+            <button class="hint-btn">Get Mathematical Hint</button>
+            <p class="hint-text"></p>
+        </div>
         <p class="label-score">💯 Score: <span class="score">20</span></p>
         <p class="label-highscore">
           🥇 Highscore: <span class="highscore">0</span>
@@ -28,10 +65,16 @@
       </section>
     </main>
     <div class="popup" id="losePopup">
-        <h2>Game Over!</h2>
-        <p>Sorry, you've run out of chances. The number was <span class="popup-number"></span></p>
+        <div class="content-box">
+            <h2>Game Over!</h2>
+            <p>Sorry, you've run out of chances. The number was <span class="popup-number"></span></p>
+            <button onclick="closePopup()">Retry</button>
+        </div>
+    </div>
+    <div class="popup" id="winPopup">
+        <h2>Congratulations!</h2>
+        <p>You won! I knew you could do it! <span class="popup-number"></span></p>
         <button onclick="closePopup()">Play Again</button>
     </div>
-    <script src="script.js"></script>
   </body>
 </html>
